@@ -40,6 +40,15 @@ public class Player : MonoBehaviour, IKitchenObjectParent
     private void Start()
     {
         gameInput.OnInteraction += GameInput_OnInteraction;
+        gameInput.OnAltInteraction += GameInput_OnAltInteraction;
+    }
+
+    private void GameInput_OnAltInteraction(object sender, EventArgs e)
+    {
+        if(selectedCounter != null)
+        {
+            selectedCounter.AltInteract();
+        }
     }
 
     private void GameInput_OnInteraction(object sender, EventArgs e)

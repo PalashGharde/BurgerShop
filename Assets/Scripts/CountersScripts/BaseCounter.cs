@@ -9,7 +9,12 @@ public class BaseCounter : MonoBehaviour, IKitchenObjectParent
 
     public virtual void Interact(Player player)
     {
-        Debug.Log("BaseCounter Interact");
+        Debug.LogError("BaseCounter Interact");
+    }
+
+    public virtual void AltInteract()
+    {
+        //Debug.Log("BaseCounter AltInteract");
     }
 
     
@@ -35,6 +40,6 @@ public class BaseCounter : MonoBehaviour, IKitchenObjectParent
 
     public void ClearKitchenObject()
     {
-        kitchenObject = null;
+        this.kitchenObject = null;
     }
 }
