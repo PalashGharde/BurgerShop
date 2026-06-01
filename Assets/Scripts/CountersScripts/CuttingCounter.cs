@@ -8,8 +8,14 @@ public class CuttingCounter : BaseCounter, IHasProgress
     private int cuttingProgress;
 
     public event EventHandler<IHasProgress.OnProgressUpdateArgs> OnProgressUpdate;
+    public static event EventHandler OnCutAction;
 
     private bool cuttingStarted;
+
+    new public static void ResetStaticData()
+    {
+        OnCutAction = null;
+    } 
 
 
     public override void Interact(Player player)
@@ -78,6 +84,7 @@ public class CuttingCounter : BaseCounter, IHasProgress
             OnProgressUpdate?.Invoke(this, new IHasProgress.OnProgressUpdateArgs {
                 progressAmount = (float) cuttingProgress/maxCutCount, playAnimation=true
             });
+            OnCutAction?.Invoke(this, EventArgs.Empty);
 
             cuttingStarted = true;  // to prevent picking up object after cutting starts
 

@@ -1,0 +1,18 @@
+using UnityEngine;
+
+public class Loadingcallback : MonoBehaviour
+{
+    private bool isFirstUpdate = true;
+
+    private void Update()
+    {
+        if (isFirstUpdate)
+        {   
+            isFirstUpdate = false;
+            SceneLoader.LoaderCallback();
+        }
+
+        
+    }
+}
+

@@ -10,12 +10,16 @@ public class DeliveryManager : MonoBehaviour
 
     public event EventHandler OnOrderAdded;
     public event EventHandler OnOrderRemoved;
+    public event EventHandler OnOrderSuccess;
+    public event EventHandler OnOrderFailure;
 
     private float waitTimer = 0f;
     private float waitTimerMax = 4f;
 
     private int ordersInWaiting = 0;
     private int ordersInWaitingMax = 4;
+
+    private int successfullOrdersCount = 0;
 
     private void Awake()
     {
@@ -76,7 +80,9 @@ public class DeliveryManager : MonoBehaviour
                     // Recipe matched
                     allOrdersList.Remove(recipeSO);
                     ordersInWaiting--;
+                    successfullOrdersCount++;
                     OnOrderRemoved?.Invoke(this, EventArgs.Empty);
+                    OnOrderSuccess?.Invoke(this, EventArgs.Empty);
                     waitTimer = 0f;
                     return;
                 }
@@ -84,10 +90,18 @@ public class DeliveryManager : MonoBehaviour
             }
         }
 
+        // No Order Matched. 
+        OnOrderFailure?.Invoke(this, EventArgs.Empty);
+
     }
 
     public List<RecipeSO> GetAllOrdersList()
     {
         return allOrdersList;
+    }
+
+    public int GetNumberOfSuccessfullOrders()
+    {
+        return successfullOrdersCount;
     }
 }

@@ -1,11 +1,18 @@
+using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class BaseCounter : MonoBehaviour, IKitchenObjectParent
 {
+    public static event EventHandler OnAnyObjectPlaced;
     [SerializeField] private Transform counterTopPoint;
 
     private KitchenObject kitchenObject;
 
+    public static void ResetStaticData()
+    {
+        OnAnyObjectPlaced = null;
+    } 
 
     public virtual void Interact(Player player)
     {
@@ -16,6 +23,8 @@ public class BaseCounter : MonoBehaviour, IKitchenObjectParent
     {
         //Debug.Log("BaseCounter AltInteract");
     }
+
+
 
     
     public bool HasKitchenObject()
@@ -31,6 +40,10 @@ public class BaseCounter : MonoBehaviour, IKitchenObjectParent
     public void SetKitchenObjectOnTop(KitchenObject kitchenObject)
     {
         this.kitchenObject = kitchenObject;
+        if(kitchenObject != null)
+        {
+            OnAnyObjectPlaced?.Invoke(this, EventArgs.Empty);
+        }
     }
 
     public Transform GetKitchenObjectParentTop()
