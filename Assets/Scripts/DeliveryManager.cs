@@ -13,6 +13,7 @@ public class DeliveryManager : MonoBehaviour
     public event EventHandler OnOrderSuccess;
     public event EventHandler OnOrderFailure;
 
+
     private float waitTimer = 0f;
     private float waitTimerMax = 4f;
 
@@ -25,21 +26,25 @@ public class DeliveryManager : MonoBehaviour
     {
         Instance = this;
         allOrdersList = new List<RecipeSO>();
+        
     }
 
     private void Update()
     {
-        waitTimer += Time.deltaTime;
-        if(waitTimer >= waitTimerMax)
+        if(GameManager.Instance.IsGamePlaying() || GameManager.Instance.IsGameCountDown())
         {
-            waitTimer = 0f;
-            if(ordersInWaiting < ordersInWaitingMax)
+            waitTimer += Time.deltaTime;
+            if(waitTimer >= waitTimerMax)
             {
-                ordersInWaiting++;
-                RecipeSO newOrder = allRecipesList.listOfAllRecipes[UnityEngine.Random.Range(0, allRecipesList.listOfAllRecipes.Count)];
-                allOrdersList.Add(newOrder);
-                OnOrderAdded?.Invoke(this, EventArgs.Empty);
-                
+                waitTimer = 0f;
+                if(ordersInWaiting < ordersInWaitingMax)
+                {
+                    ordersInWaiting++;
+                    RecipeSO newOrder = allRecipesList.listOfAllRecipes[UnityEngine.Random.Range(0, allRecipesList.listOfAllRecipes.Count)];
+                    allOrdersList.Add(newOrder);
+                    OnOrderAdded?.Invoke(this, EventArgs.Empty);
+                    
+                }
             }
         }
     }

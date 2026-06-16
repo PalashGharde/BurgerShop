@@ -5,7 +5,7 @@ public class MusicManager : MonoBehaviour
     private string PLAYER_PREFS_MUSIC_VOLUME = "MusicVolume";
     public static MusicManager Instance {get; private set;}
     private AudioSource musicAudioSource;
-    private float volume=0.4f;
+    private float volume=0.2f;
     private void Awake()
     {
         Instance = this;
@@ -21,7 +21,7 @@ public class MusicManager : MonoBehaviour
     public void ChangeVolume()
     {
         volume += 0.1f;
-        if (volume > 1f)
+        if (volume > 1.1f)
         {
             volume = 0f;
         }

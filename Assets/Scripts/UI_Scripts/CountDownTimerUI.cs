@@ -4,7 +4,17 @@ using UnityEngine;
 
 public class CountDownTimerUI : MonoBehaviour
 {
+
+    private const string COUNTDOWN_TRIGGER = "CountDownTrigger";
     [SerializeField] private TextMeshProUGUI countDownTimer;
+    private Animator animator;
+    private int previousCountDownNum = 10;
+
+    private void Awake()
+    {
+        animator = gameObject.GetComponent<Animator>();
+        
+    }
 
     private void Start()
     {
@@ -36,6 +46,14 @@ public class CountDownTimerUI : MonoBehaviour
 
     private void Update()
     {
-        countDownTimer.text = Math.Ceiling(GameManager.Instance.GetCountDownTimer()).ToString();
+        int countDownNum = (int)Math.Ceiling(GameManager.Instance.GetCountDownTimer());
+        countDownTimer.text = countDownNum.ToString();
+
+        if(countDownNum != previousCountDownNum && countDownNum>0)
+        {
+            previousCountDownNum = countDownNum;
+            animator.SetTrigger(COUNTDOWN_TRIGGER);
+            SoundEffectsManager.Instance.PlayCountDownSound();
+        }
     }
 }

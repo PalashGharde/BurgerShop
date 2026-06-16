@@ -9,7 +9,7 @@ public class SoundEffectsManager : MonoBehaviour
     public static SoundEffectsManager Instance {get; private set;}
     [SerializeField] private SoundEffectsSO soundEffectsSO;
 
-    private float soundEffectVolume= 0.7f;
+    private float soundEffectVolume= 1.0f;
 
     private void Awake()
     {
@@ -24,7 +24,7 @@ public class SoundEffectsManager : MonoBehaviour
         BaseCounter.OnAnyObjectPlaced += BaseCounter_OnAnyObjectPlaced;
         TrashCounter.OnAnyObjectTrashed += TrashCounter_OnAnyObjectTrashed;
 
-        soundEffectVolume = PlayerPrefs.GetFloat(PLAYER_PREFS_SOUND_EFFECTS_VOLUME, 0.7f);
+        soundEffectVolume = PlayerPrefs.GetFloat(PLAYER_PREFS_SOUND_EFFECTS_VOLUME, 1.0f);
     }
 
     private void TrashCounter_OnAnyObjectTrashed(object sender, EventArgs e)
@@ -75,10 +75,20 @@ public class SoundEffectsManager : MonoBehaviour
         PlaySound(soundEffectsSO.footStepsSFXs, position, volumeMultiplier * soundEffectVolume);
     }
 
+    public void PlayWarningSound(Vector3 position)
+    {
+        PlaySound(soundEffectsSO.warningSFXs[1], position);
+    }
+
+    public void PlayCountDownSound()
+    {
+        PlaySound(soundEffectsSO.warningSFXs[0], Vector3.zero);
+    }
+
     public void ChangeVolume()
     {
         soundEffectVolume += 0.1f;
-        if (soundEffectVolume > 1f)
+        if (soundEffectVolume > 1.1f)
         {
             soundEffectVolume = 0f;
         }

@@ -12,6 +12,8 @@ public class GameInput : MonoBehaviour
     public event EventHandler OnAltInteraction;
     public event EventHandler OnPauseGame;
 
+    public event EventHandler OnInputRebind;
+
     public enum Bindings
     {
         MoveUp,
@@ -24,6 +26,7 @@ public class GameInput : MonoBehaviour
         GamepadInteract,
         GamepadInteractAlternate,
         GamepadPause,
+        GamepadMove,
     }
 
     private void Awake()
@@ -113,6 +116,9 @@ public class GameInput : MonoBehaviour
             case Bindings.GamepadPause:
             return playerInputActions.PlayerDefault.Pause.bindings[1].ToDisplayString();
 
+            case Bindings.GamepadMove:
+            return playerInputActions.PlayerDefault.Move.bindings[6].ToDisplayString().Split('/')[0];
+
             default:
             return "Unkown Binding";
         }
@@ -177,6 +183,7 @@ public class GameInput : MonoBehaviour
                 inputAction = playerInputActions.PlayerDefault.Pause;
                 bindingIndex = 1;
                 break;
+
         }
 
         inputAction.PerformInteractiveRebinding(bindingIndex)
@@ -188,6 +195,8 @@ public class GameInput : MonoBehaviour
 
                 PlayerPrefs.SetString(PLAYER_INPUT_MAPPING, playerInputActions.SaveBindingOverridesAsJson());
                 PlayerPrefs.Save();
+
+                OnInputRebind?.Invoke(this, EventArgs.Empty);
             })
             .Start();
     }

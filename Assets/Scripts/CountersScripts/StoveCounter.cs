@@ -32,6 +32,7 @@ public class StoveCounter : BaseCounter, IHasProgress
         fryingTimer = 0f;
     }
 
+
     private void Update()
     {
         if (HasKitchenObject())    
@@ -95,6 +96,11 @@ public class StoveCounter : BaseCounter, IHasProgress
             
         }
         
+    }
+
+    public bool IsStoveBurning()
+    {
+        return state == FryingState.Burning;
     }
 
     public override void Interact(Player player)
