@@ -9,7 +9,7 @@ The project focuses on gameplay systems programming, modular kitchen interaction
 
 ## Play the Game
 
-- **Store Page:** [itch.io WebGL Version](https://newbgamedev.itch.io/burgershop)
+- **Store Page:** [Burger Shop Itch.io](https://newbgamedev.itch.io/burgershop)
 
 ---
 
