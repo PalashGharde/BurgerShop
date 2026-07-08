@@ -11,8 +11,11 @@ public class PlateKitchenObject : KitchenObject
     }
 
     [SerializeField] private List<KitchenObjectSO> validkitchenObjectSOList;
+
     
     private List<KitchenObjectSO> kitchenObjectSOList;
+    private const string DRINK_CUP = "DrinkCup";
+    private bool hasDrink= false;
     
     
 
@@ -27,6 +30,16 @@ public class PlateKitchenObject : KitchenObject
         if (!validkitchenObjectSOList.Contains(kitchenObjectSO))
         {
             return false;
+        }
+
+        if(kitchenObjectSO.objectName == DRINK_CUP)
+        {
+            if (hasDrink)
+            {
+                return false;
+            }
+
+            hasDrink = true;
         }
 
         if (kitchenObjectSOList.Contains(kitchenObjectSO))

@@ -10,7 +10,7 @@ public class Player : MonoBehaviour, IKitchenObjectParent
 
     [SerializeField] private float playerSpeed = 8f;
     [SerializeField] private float playerHeight = 2f;
-    [SerializeField] private float playerRadius = 0.7f;
+    [SerializeField] private float playerRadius = 0.4f;
     [SerializeField] private GameInput gameInput;
     private bool isWalking;
     private Vector3 lastInteractionDirection;
@@ -119,51 +119,137 @@ public class Player : MonoBehaviour, IKitchenObjectParent
 
     private void HandleMovement()
     {
+        if(GameManager.Instance.IsPlayingMinigame() || GameManager.Instance.IsGameOver()) return;
+
         Vector2 inputVector = gameInput.GetInputVectorNormalized();
 
         Vector3 moveDir = new Vector3(inputVector.x, 0f, inputVector.y);
 
-        float rotateSpeed = 20f;
-        transform.forward = Vector3.Slerp(transform.forward, moveDir , rotateSpeed*Time.deltaTime);
-
         float moveDistance = playerSpeed * Time.deltaTime;
 
-        bool canMove = !Physics.CapsuleCast(transform.position, transform.position + Vector3.up * playerHeight, playerRadius, moveDir,moveDistance);
+        bool hasMovementInput = moveDir.sqrMagnitude > 0.01f;
 
-        if (!canMove) // Check if player can move while hugging the wall. (at on of the components of diagonal input)
+        bool canMove = false;
+
+        if (hasMovementInput)
         {
-            // Check if player can move on only x
-            Vector3 moveDirX = new Vector3(moveDir.x,0,0); // this is not normalized so the player move slower while hugging the wall
-            canMove = (moveDir.x < -.5f || moveDir.x > +.5f) && !Physics.CapsuleCast(transform.position, transform.position + Vector3.up * playerHeight, playerRadius, moveDirX ,moveDistance);
+            canMove = !Physics.CapsuleCast(
+                transform.position,
+                transform.position + Vector3.up * playerHeight,
+                playerRadius,
+                moveDir,
+                moveDistance
+            );
 
-            if (canMove)
+            if (!canMove)
             {
-                moveDir = moveDirX;
-            }
-            else // Check if player can move on only z
-            {
-                Vector3 moveDirZ = new Vector3(0,0,moveDir.z); 
-                canMove = (moveDir.z < -.5f || moveDir.z > +.5f) && !Physics.CapsuleCast(transform.position, transform.position + Vector3.up * playerHeight, playerRadius, moveDirZ ,moveDistance);
+                // Try moving only on X
+                Vector3 moveDirX = new Vector3(moveDir.x, 0f, 0f).normalized;
+
+                canMove = moveDir.x != 0 &&
+                        !Physics.CapsuleCast(
+                            transform.position,
+                            transform.position + Vector3.up * playerHeight,
+                            playerRadius,
+                            moveDirX,
+                            moveDistance
+                        );
 
                 if (canMove)
                 {
-                    moveDir = moveDirZ;
+                    moveDir = moveDirX;
                 }
                 else
                 {
-                    //player cannot move
+                    // Try moving only on Z
+                    Vector3 moveDirZ = new Vector3(0f, 0f, moveDir.z).normalized;
+
+                    canMove = moveDir.z != 0 &&
+                            !Physics.CapsuleCast(
+                                transform.position,
+                                transform.position + Vector3.up * playerHeight,
+                                playerRadius,
+                                moveDirZ,
+                                moveDistance
+                            );
+
+                    if (canMove)
+                    {
+                        moveDir = moveDirZ;
+                    }
                 }
             }
 
+            if (canMove)
+            {
+                transform.position += moveDir * moveDistance;
 
+                float rotateSpeed = 10f;
+
+                transform.forward = Vector3.Slerp(
+                    transform.forward,
+                    moveDir,
+                    rotateSpeed * Time.deltaTime
+                );
+            }
         }
 
-        if (canMove)
-        {
-            transform.position += moveDir * playerSpeed * Time.deltaTime ;
-        }
+        isWalking = hasMovementInput;
+    }
 
-        isWalking = moveDir != Vector3.zero;
+
+    // private void HandleMovement()
+    // {
+    //     Vector2 inputVector = gameInput.GetInputVectorNormalized();
+
+    //     Vector3 moveDir = new Vector3(inputVector.x, 0f, inputVector.y);
+
+    //     float rotateSpeed = 20f;
+    //     transform.forward = Vector3.Slerp(transform.forward, moveDir , rotateSpeed*Time.deltaTime);
+
+    //     float moveDistance = playerSpeed * Time.deltaTime;
+
+    //     bool canMove = !Physics.CapsuleCast(transform.position, transform.position + Vector3.up * playerHeight, playerRadius, moveDir,moveDistance);
+
+    //     if (!canMove) // Check if player can move while hugging the wall. (at on of the components of diagonal input)
+    //     {
+    //         // Check if player can move on only x
+    //         Vector3 moveDirX = new Vector3(moveDir.x,0,0); // this is not normalized so the player move slower while hugging the wall
+    //         canMove = (moveDir.x < -.5f || moveDir.x > +.5f) && !Physics.CapsuleCast(transform.position, transform.position + Vector3.up * playerHeight, playerRadius, moveDirX ,moveDistance);
+
+    //         if (canMove)
+    //         {
+    //             moveDir = moveDirX;
+    //         }
+    //         else // Check if player can move on only z
+    //         {
+    //             Vector3 moveDirZ = new Vector3(0,0,moveDir.z); 
+    //             canMove = (moveDir.z < -.5f || moveDir.z > +.5f) && !Physics.CapsuleCast(transform.position, transform.position + Vector3.up * playerHeight, playerRadius, moveDirZ ,moveDistance);
+
+    //             if (canMove)
+    //             {
+    //                 moveDir = moveDirZ;
+    //             }
+    //             else
+    //             {
+    //                 //player cannot move
+    //             }
+    //         }
+
+
+    //     }
+
+    //     if (canMove)
+    //     {
+    //         transform.position += moveDir * playerSpeed * Time.deltaTime ;
+    //     }
+
+    //     isWalking = moveDir != Vector3.zero;
+    // }
+
+    public bool HasPlate()
+    {
+        return GetKitchenObjectOnTop().TryGetPlate(out PlateKitchenObject plate);
     }
 
     
@@ -190,6 +276,7 @@ public class Player : MonoBehaviour, IKitchenObjectParent
     {
         return KitchenObjectHoldPoint;
     }
+
 
     public void ClearKitchenObject()
     {

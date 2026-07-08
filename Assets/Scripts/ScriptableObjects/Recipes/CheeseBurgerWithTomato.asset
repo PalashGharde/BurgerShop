@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce61d3b218eb5904e93f8c6d1a3376f7, type: 3}
   m_Name: CheeseBurgerWithTomato
   m_EditorClassIdentifier: Assembly-CSharp::RecipeSO
-  recipeName: Burger W Tomato
+  recipeName: 'TomatoBurger '
   ingridientKitchenSOList:
   - {fileID: 11400000, guid: fb567fb715c7aff49b59493ef6914024, type: 2}
   - {fileID: 11400000, guid: 18a725dfcf0003b4b932b7bda69abc94, type: 2}

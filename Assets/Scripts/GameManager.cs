@@ -4,7 +4,10 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance {get; private set;}
+
     public event EventHandler OnStateChanged;
+    
+
 
     public event EventHandler OnGamePaused;
     public event EventHandler OnGameUnPaused;
@@ -14,9 +17,10 @@ public class GameManager : MonoBehaviour
         CountdownToStart,
         GamePlaying,
         GameOver,
+        PlayingMinigame,
     }
     private float countdownToStartTimer = 3f;
-    private float gamePlayingTimerMax = 40f;
+    private float gamePlayingTimerMax = 60f;
     private float gamePlayingTimer;
     private bool isGamePaused = false;
     
@@ -34,6 +38,21 @@ public class GameManager : MonoBehaviour
         GameInput.Instance.OnPauseGame += GameInput_OnPauseGame;
         GameInput.Instance.OnInteraction += GameInput_OnInteraction;
         DeliveryManager.Instance.OnOrderSuccess += Delivery_OnOrderSuccess;
+        SodaMachineUI.OnSodaStartMinigame += SodaCounter_OnSodaStartMinigame;
+        SodaMachineUI.OnSodaStopMinigame += SodaCounter_OnSodaStopMinigame;
+    }
+
+    private void SodaCounter_OnSodaStopMinigame(object sender, EventArgs e)
+    {
+        state = State.GamePlaying;
+        OnStateChanged?.Invoke(this, EventArgs.Empty);
+    }
+
+    private void SodaCounter_OnSodaStartMinigame(object sender, EventArgs e)
+    {
+        state = State.PlayingMinigame;
+        OnStateChanged?.Invoke(this, EventArgs.Empty);
+
     }
 
     private void GameInput_OnInteraction(object sender, EventArgs e)
@@ -81,6 +100,9 @@ public class GameManager : MonoBehaviour
                 break;
             case State.GameOver:
                 break;
+            case State.PlayingMinigame:
+
+                break;
         }
     }
 
@@ -99,10 +121,16 @@ public class GameManager : MonoBehaviour
         return state == State.GameOver;
     }
 
+    public bool IsPlayingMinigame()
+    {
+        return state == State.PlayingMinigame;
+    }
+
     public float GetCountDownTimer()
     {
         return countdownToStartTimer;
     }
+
 
     
 

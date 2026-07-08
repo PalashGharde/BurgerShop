@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa5c357bbe8257644a8e026125b2ce2c, type: 3}
+  m_Name: Fries_Cooked_Burned
+  m_EditorClassIdentifier: Assembly-CSharp::FryingRecipeSO
+  input: {fileID: 11400000, guid: 6e5e2050d70dfaa43969a2d4f0f26de2, type: 2}
+  output: {fileID: 11400000, guid: 52a932dd04d00394386662133eeb483e, type: 2}
+  maxFryingTime: 9
+  startingState: 2

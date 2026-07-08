@@ -1,10 +1,26 @@
 using TMPro;
 using UnityEngine;
 using System;
+using UnityEngine.UI;
 
 public class GameOverUI : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI ordersSuccessfulText;
+
+    [SerializeField] private Button replayButton;
+    [SerializeField] private Button quitButton;
+
+    private void Awake()
+    {
+        replayButton.onClick.AddListener(() =>
+        {
+            SceneLoader.LoadScene(SceneLoader.Scene.GameScene);
+        });
+        quitButton.onClick.AddListener(() =>
+        {
+            Application.Quit();
+        });
+    }
 
     private void Start()
     {
@@ -33,6 +49,7 @@ public class GameOverUI : MonoBehaviour
     private void Show()
     {
         gameObject.SetActive(true);
+        replayButton.Select();
     }
 
 

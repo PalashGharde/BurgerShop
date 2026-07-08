@@ -24,7 +24,21 @@ public class SoundEffectsManager : MonoBehaviour
         BaseCounter.OnAnyObjectPlaced += BaseCounter_OnAnyObjectPlaced;
         TrashCounter.OnAnyObjectTrashed += TrashCounter_OnAnyObjectTrashed;
 
+        SodaMachineUI.OnItemPickup += Player_OnObjectPickup;
+        SodaMachineUI.OnItemThrow += OnAnyObjectTrashed;
+        SodaMachineUI.OnDrinkFilled += SodaMachineUI_OnDrinkFilled;
+
         soundEffectVolume = PlayerPrefs.GetFloat(PLAYER_PREFS_SOUND_EFFECTS_VOLUME, 1.0f);
+    }
+
+    private void SodaMachineUI_OnDrinkFilled(object sender, EventArgs e)
+    {
+        PlaySound(soundEffectsSO.sodaFillingSFXs, Player.Instance.transform.position);
+    }
+
+    private void OnAnyObjectTrashed(object sender, EventArgs e)
+    {
+        PlaySound(soundEffectsSO.trashSFXs, Player.Instance.transform.position);
     }
 
     private void TrashCounter_OnAnyObjectTrashed(object sender, EventArgs e)

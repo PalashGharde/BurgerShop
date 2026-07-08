@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce61d3b218eb5904e93f8c6d1a3376f7, type: 3}
+  m_Name: CheeseBurgerWithCabbageWD1 1
+  m_EditorClassIdentifier: Assembly-CSharp::RecipeSO
+  recipeName: Lattuce Burger+Drink2
+  ingridientKitchenSOList:
+  - {fileID: 11400000, guid: fb567fb715c7aff49b59493ef6914024, type: 2}
+  - {fileID: 11400000, guid: c846abaf62764ab4985e60ebb3fb51aa, type: 2}
+  - {fileID: 11400000, guid: 18a725dfcf0003b4b932b7bda69abc94, type: 2}
+  - {fileID: 11400000, guid: 39e0abd0c1bc7814f9ceeb97cb06bd76, type: 2}
+  - {fileID: 11400000, guid: 66ef1374bcf91b94d8322a70f6ca3f1e, type: 2}

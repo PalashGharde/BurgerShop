@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66fdd52aeb5e4ed4a97fad6a08155e2b, type: 3}
+  m_Name: UncookedFries
+  m_EditorClassIdentifier: Assembly-CSharp::KitchenObjectSO
+  objectName: UncookedFries
+  sprite: {fileID: 21300000, guid: f2ce5ae4ff46e044ea0c4e7d845415ba, type: 3}
+  prefab: {fileID: 8716288394287220467, guid: f6465ea767fd0184ca118c65a3c1f9a4, type: 3}

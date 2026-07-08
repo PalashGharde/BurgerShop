@@ -12,4 +12,5 @@ public class SoundEffectsSO : ScriptableObject
     public AudioClip sizzleSFXs;
     public AudioClip[] trashSFXs;
     public AudioClip[] warningSFXs;
+    public AudioClip[] sodaFillingSFXs;
 }

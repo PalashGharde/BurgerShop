@@ -29,6 +29,8 @@ public class KitchenObject : MonoBehaviour
 
         transform.parent = kitchenObjectParent.GetKitchenObjectParentTop();
         transform.localPosition = Vector3.zero;
+        // Reset rotation when placed on clear counter
+        transform.localRotation = Quaternion.identity;
     }
 
     public IKitchenObjectParent GetKitchenObjectParent()
@@ -61,7 +63,6 @@ public class KitchenObject : MonoBehaviour
         Transform kitchenObjectTransform = Instantiate(kitchenObjectSO.prefab);
         KitchenObject kitchenObject = kitchenObjectTransform.GetComponent<KitchenObject>();
         kitchenObject.SetKitchenObjectParent(kitchenObjectParent);
-
         return kitchenObject;
 
     }

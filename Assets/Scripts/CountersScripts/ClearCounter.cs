@@ -23,6 +23,7 @@ public class ClearCounter : BaseCounter
         {   //There is a KitchenObject on top
             if (player.HasKitchenObject())
             {
+                
                 if(player.GetKitchenObjectOnTop().TryGetPlate(out PlateKitchenObject plate))
                 {
                     // Player is holding a plate
@@ -41,6 +42,7 @@ public class ClearCounter : BaseCounter
                         // Counter has a plate
                         if (plate.TryAddIngredientToPlate(player.GetKitchenObjectOnTop().GetKitchenObjectSO()))
                         {
+                            
                             // if adding is successfull
                             player.GetKitchenObjectOnTop().DestroySelf();
                         }
@@ -52,6 +54,13 @@ public class ClearCounter : BaseCounter
             {
                 // Player doesnt have a Object
                 GetKitchenObjectOnTop().SetKitchenObjectParent(player);
+
+                //face plate in players forward direction
+                // Vector3 forward = player.transform.forward;
+                // forward.y = 0f;
+                // forward.Normalize();
+                // Quaternion rotation = Quaternion.LookRotation(forward, Vector3.up);
+                // player.GetKitchenObjectOnTop().transform.rotation = rotation;
             }
         }
     }
