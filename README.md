@@ -9,8 +9,7 @@ The project focuses on gameplay systems programming, modular kitchen interaction
 
 ## Play the Game
 
-- **Play Online:** [itch.io WebGL Version](YOUR_ITCH_IO_LINK_HERE)
-- **Download for Windows:** [Windows Build](YOUR_ITCH_IO_LINK_HERE)
+- **Store Page:** [itch.io WebGL Version](https://newbgamedev.itch.io/burgershop)
 
 ---
 
@@ -91,9 +90,4 @@ Gamepad support is also included.
 
 ---
 
-## Screenshots
-
-Add your screenshots in a folder like:
-
-```md
 Screenshots/
