@@ -38,17 +38,15 @@ public class GameManager : MonoBehaviour
         GameInput.Instance.OnPauseGame += GameInput_OnPauseGame;
         GameInput.Instance.OnInteraction += GameInput_OnInteraction;
         DeliveryManager.Instance.OnOrderSuccess += Delivery_OnOrderSuccess;
-        SodaMachineUI.OnSodaStartMinigame += SodaCounter_OnSodaStartMinigame;
-        SodaMachineUI.OnSodaStopMinigame += SodaCounter_OnSodaStopMinigame;
     }
 
-    private void SodaCounter_OnSodaStopMinigame(object sender, EventArgs e)
+    public void StopMinigame()
     {
         state = State.GamePlaying;
         OnStateChanged?.Invoke(this, EventArgs.Empty);
     }
 
-    private void SodaCounter_OnSodaStartMinigame(object sender, EventArgs e)
+    public void StartMinigame()
     {
         state = State.PlayingMinigame;
         OnStateChanged?.Invoke(this, EventArgs.Empty);

@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class SodaMachineUI : MonoBehaviour
 {
+    public static SodaMachineUI Instance {get;set;}
     // [SerializeField] private SodaCounter sodaCounter;
     [SerializeField] private Button cupsStack;
     [SerializeField] private Button cupLidsStack;
@@ -34,8 +35,6 @@ public class SodaMachineUI : MonoBehaviour
     public static event EventHandler OnItemThrow;
     public static event EventHandler OnDrinkFilled;
 
-    public static event EventHandler OnSodaStartMinigame;
-    public static event EventHandler OnSodaStopMinigame;
 
     public static event EventHandler<OnMiniGameArgs> OnFinalSodaMade;
 
@@ -53,6 +52,7 @@ public class SodaMachineUI : MonoBehaviour
 
     private void Awake()
     {
+        Instance = this;
         cupGoToHand.SetActive(false);
         cupGoToTrash.SetActive(false);
         cupLidGoToHand.SetActive(false);
@@ -105,16 +105,12 @@ public class SodaMachineUI : MonoBehaviour
             FillCupWithDrink(drinkOption4,drinkOption4Cup,drinkNumber);
         });
 
-        // sodaCounter.OnSodaInteract += SodaCounter_OnSodaInteract;
-
-        SodaCounter.OnMiniGameStarted += SodaCounter_OnSodaInteract;
-
         Hide();
     }
 
  
 
-    private void SodaCounter_OnSodaInteract(object sender, EventArgs e)
+    public void SodaCounter_OnSodaInteract()
     {
         StartMinigame();
     }
@@ -217,7 +213,7 @@ public class SodaMachineUI : MonoBehaviour
             waitTimer = .5f;
             StartCoroutine(GiveCupToPlayerRoutine());
         }
-        
+        StopMinigame();
         
         
     }
@@ -226,7 +222,6 @@ public class SodaMachineUI : MonoBehaviour
     {
         yield return new WaitForSeconds(waitTimer);
         
-        // sodaCounter.GiveFinalDrinkToPlayer(finalDrink);
         OnFinalSodaMade?.Invoke(this,new OnMiniGameArgs
         {
             drink = finalDrink
@@ -238,11 +233,11 @@ public class SodaMachineUI : MonoBehaviour
         Hide();
         OnItemPickup?.Invoke(this,EventArgs.Empty);
         ResetAnimationGameObjects();
-        StopMinigame();
+        
     }
     private void StopMinigame()
     {
-        OnSodaStopMinigame?.Invoke(this,EventArgs.Empty);
+        GameManager.Instance.StopMinigame();
     }
 
     private void DestroyCupInHand()
@@ -264,7 +259,7 @@ public class SodaMachineUI : MonoBehaviour
     {
         gameObject.SetActive(true);
         cupsStack.Select();
-        OnSodaStartMinigame?.Invoke(this,EventArgs.Empty);
+        GameManager.Instance.StartMinigame();
     }
     private void Hide()
     {
@@ -284,5 +279,12 @@ public class SodaMachineUI : MonoBehaviour
         drinkOption4Cup.gameObject.SetActive(false);
     }
 
+    public static void ResetStaticData()
+    {
+        OnItemPickup = null;
+        OnItemThrow = null;
+        OnDrinkFilled = null;
+        OnFinalSodaMade = null;
+    }
 
 }
