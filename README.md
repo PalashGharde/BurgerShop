@@ -89,5 +89,3 @@ The game is designed around fast decision-making, smooth interaction flow, and e
 Gamepad support is also included.
 
 ---
-
-Screenshots/
