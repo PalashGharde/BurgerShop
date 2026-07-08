@@ -1,70 +1,99 @@
-# BurgerShop
+# Burger Shop - 3D Cooking Simulator
 
-BurgerShop is a Unity-based cooking and restaurant management game inspired by fast-paced kitchen gameplay mechanics. The project focuses on gameplay systems programming, player interaction systems, modular kitchen architecture, and real-time order management.
+**Burger Shop** is a fast-paced 3D cooking and restaurant management game built in Unity.  
+Players prepare burger orders, cook patties, slice ingredients, assemble recipes, make drinks, and deliver completed plates before time runs out.
 
-This project was developed in Unity using C# and was created as a gameplay systems learning project focused on building reusable and scalable gameplay mechanics.
+The project focuses on gameplay systems programming, modular kitchen interactions, real-time order management, UI feedback, and player-friendly cooking mechanics.
+
+---
+
+## Play the Game
+
+- **Play Online:** [itch.io WebGL Version](YOUR_ITCH_IO_LINK_HERE)
+- **Download for Windows:** [Windows Build](YOUR_ITCH_IO_LINK_HERE)
 
 ---
 
 ## Gameplay Overview
 
-Players manage a kitchen by:
-- Picking up and handling ingredients
-- Using kitchen counters and cooking stations
-- Preparing food recipes
-- Combining ingredients on plates
-- Delivering completed customer orders within time limits
+In Burger Shop, the player manages a small burger restaurant by completing customer orders as quickly and accurately as possible.
 
-The gameplay loop focuses on speed, interaction flow, and kitchen workflow management.
+Core gameplay loop:
+
+1. Read incoming customer recipes.
+2. Pick up ingredients from container counters.
+3. Cut, cook, or prepare ingredients at the correct stations.
+4. Combine ingredients on plates.
+5. Prepare drinks using the soda machine mini-game.
+6. Deliver completed orders to the delivery counter.
+7. Score points before the timer runs out.
+
+The game is designed around fast decision-making, smooth interaction flow, and efficient kitchen movement.
 
 ---
 
 ## Features
 
-### Core Gameplay Systems
-- Player movement and interaction system
-- Object pickup and drop mechanics
-- Ingredient handling system
-- Plate and recipe combination system
-- Customer order generation and delivery system
-- Timed gameplay and order management
+### Core Gameplay
+
+- Fast-paced burger cooking gameplay
+- Customer order and recipe system
+- Ingredient pickup, drop, and preparation mechanics
+- Plate-based food assembly system
+- Delivery counter and score system
+- Timed game session with win/loss flow
+- Replayable gameplay loop
 
 ### Kitchen Systems
-- Cutting counters
-- Stove counters
-- Delivery counters
-- Trash counters
-- Ingredient container counters
-- Plate spawning systems
+
+- Cutting counter for slicing ingredients
+- Stove counter for cooking patties
+- Container counters for ingredient pickup
+- Plate counter and plate stacking system
+- Trash counter for discarding items
+- Delivery counter for completed recipes
+- Soda machine mini-game for drink preparation
+
+### UI and Game Flow
+
+- Main menu scene
+- Loading scene
+- Game scene
+- Tutorial/instruction screen
+- Order recipe UI
+- Game over screen
+- Replay support
+- Keyboard and gamepad input support
 
 ### Technical Features
-- Modular object-oriented architecture
-- Unity New Input System integration
-- Reusable gameplay components
-- Script-based interaction system
-- UI and gameplay feedback systems
-- Organized prefab and scene workflow
+
+- Built with Unity and C#
+- Modular object-oriented gameplay architecture
+- Reusable counter and kitchen object system
+- Event-driven gameplay communication
+- ScriptableObject-based recipe and kitchen object data
+- Unity Input System integration
+- Scene loading and game state management
+- WebGL and Windows build support
 
 ---
 
-## Tech Stack
+## Controls
 
-- Unity Engine
-- C#
-- Unity Input System
-- Object-Oriented Programming (OOP)
+| Action | Keyboard |
+|---|---|
+| Move | WASD / Arrow Keys |
+| Interact | E |
+| Alternate Interact | F |
+| Pause | Esc |
+
+Gamepad support is also included.
 
 ---
 
-## Project Structure
+## Screenshots
 
-```plaintext
-Assets/
-│
-├── Scripts/
-├── Scenes/
-├── Prefabs/
-├── KitchenAssets/
-├── InputActions/
-├── UI/
-└── Materials/
+Add your screenshots in a folder like:
+
+```md
+Screenshots/
